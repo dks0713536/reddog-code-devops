@@ -57,18 +57,13 @@ jobs:
       - name: Echo yaml
         run: |
           cat manifests/deployments/accounting-service.yaml
-      - name: echo cred
-        run: |
-          echo ${{ secrets.ACR_ENDPOINT }}
-          echo ${{ secrets.ACR_USERNAME }}
-          echo ${{ secrets.ACR_PASSWORD }}
-      - name: Update deployment yaml
+      - name: Update deployment yamlgi
         uses: fjogeleit/yaml-update-action@master
         with:
           valueFile: 'manifests/deployments/accounting-service.yaml'
           propertyPath: 'spec.template.spec.containers.0.image'
           value: ${{ secrets.ACR_ENDPOINT }}/reddog-retail-demo/${{ needs.set-env.outputs.image }}:${{ needs.set-env.outputs.version }}
-          commitChange: 'true'
+          commitChange: 'false'
           branch: 'main'
           message: 'Updated accounting service deployment manifest.'
           createPR: 'false'
