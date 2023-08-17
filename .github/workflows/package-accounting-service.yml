@@ -57,6 +57,11 @@ jobs:
       - name: Echo yaml
         run: |
           cat manifests/deployments/accounting-service.yaml
+      - name: echo cred
+        run: |
+          echo ${{ secrets.ACR_ENDPOINT }}
+          echo ${{ secrets.ACR_USERNAME }}
+          echo ${{ secrets.ACR_PASSWORD }}
       - name: Update deployment yaml
         uses: fjogeleit/yaml-update-action@master
         with:
